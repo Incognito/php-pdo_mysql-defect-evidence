@@ -1,11 +1,7 @@
 <?php
 sleep(1);
 
-$connection = new PDO('mysql:host=db;port=3306;dbname=mysql', 'root', 'example', [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-]);
-
-$connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+$connection = new PDO('mysql:host=db;port=3306;dbname=mysql', 'root', 'example', []);
 
 $connection->prepare('DROP TABLE IF EXISTS pdo_bug_test;')->execute();
 $connection->prepare('CREATE TABLE pdo_bug_test (value1 VARCHAR(10), value2 INT);')->execute();
