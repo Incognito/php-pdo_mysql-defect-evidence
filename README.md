@@ -14,3 +14,26 @@ cli-failing    | Test case c bool(false)
 cli-passing    | Test case c bool(true)
 ```
 
+
+
+# PHP diffs between versions
+
+Just one commit related specifically to `ext/pdo` and `ext/pdo_mysql`
+
+```
+* 51cdd3dc50  Fix check of mysql_commit() return value YaoGuai (3 years ago)
+  
+  diff --git a/ext/pdo_mysql/mysql_driver.c b/ext/pdo_mysql/mysql_driver.c
+  index 1bf4eb039a..d5052479ef 100644
+  --- a/ext/pdo_mysql/mysql_driver.c
+  +++ b/ext/pdo_mysql/mysql_driver.c
+  @@ -327,7 +327,7 @@ static int mysql_handle_commit(pdo_dbh_t *dbh)
+        PDO_DBG_ENTER("mysql_handle_commit");
+        PDO_DBG_INF_FMT("dbh=%p", dbh);
+   #if MYSQL_VERSION_ID >= 40100 || defined(PDO_USE_MYSQLND)
+  -     PDO_DBG_RETURN(0 <= mysql_commit(((pdo_mysql_db_handle *)dbh->driver_data)->server));
+  +     PDO_DBG_RETURN(0 == mysql_commit(((pdo_mysql_db_handle *)dbh->driver_data)->server));
+   #else
+        PDO_DBG_RETURN(0 <= mysql_handle_doer(dbh, ZEND_STRL("COMMIT")));
+   #endif
+```
