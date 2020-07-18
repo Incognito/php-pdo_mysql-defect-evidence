@@ -1,3 +1,5 @@
+For https://bugs.php.net/bug.php?id=79872
+
 There's an issue with PHP's pdo_mysql driver where commits are rolled back.
 Exists on 7.0, 7.1, 7.2 and 7.4. Works fine on 5.6. Earliest version introduced
 in is 7.0.23.
