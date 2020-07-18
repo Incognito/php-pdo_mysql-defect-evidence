@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "example"
+      MYSQL_USER: "root"
+
+  cli-failing:
+    build: 
+      dockerfile: ./Dockerfile-failing
+      context: ./
+    command: "c"
+    container_name: cli-failing
+    working_dir: /app
+    volumes:
+      - ./:/app
+    links:
+      - db
+
+  cli-passing:
+    build: 
+      dockerfile: ./Dockerfile-passing
+      context: ./
+    command: "c"
+    container_name: cli-passing
+    working_dir: /app
+    volumes:
+      - ./:/app
+    links:
+      - db
